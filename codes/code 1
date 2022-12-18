@@ -1,0 +1,1 @@
+relax.linuxgccrelease -in:file:s 4ers.pdb -nstruct 20 -in:file:fullatom -ignore_zero_occupancy false -linmem_ig 10 -in:detect_disulf -packing:use_input_sc -relax:constrain_relax_to_start_coords true -coord_constrain_sidechains true -ramp_constraints false -out:prefix 4ers_relax -out:file:scorefile 4ers_relax_score.sc
