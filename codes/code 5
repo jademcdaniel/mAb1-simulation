@@ -1,0 +1,65 @@
+from datetime import datetime
+start = datetime.now()
+
+import numpy as np #import numpy 
+
+MD_corr = np.zeros((445,445)) #create an empty array
+
+md_corr_infile = open('mab1_matrix1.dat') #read in correlation matrix file and place inside new array
+i = 0
+for line in md_corr_infile:
+    j=0
+    split_line = line.split(' ')
+    for val in split_line:
+        if len(val.replace('\n','')) > 0:
+            MD_corr[i,j] = float(val)
+            j += 1
+    i += 1
+    
+print('Full Correlation Matrix = ', '\n', MD_corr, '\n') #print array to ensure values were successfully transferred
+
+print('Size of Full Correlation Matrix = ','\n', MD_corr.shape, '\n') #print size of array (should be 445x445)
+
+H3_corr = MD_corr[98:112,98:112] #create new matrix containing just H3 loop residues
+
+print('H3 Loop Residue Correlation Matrix = ','\n', H3_corr, '\n') #print array to ensure correct values were selected
+
+print('Size of H3 Loop Residue Correlation Matrix = ','\n', H3_corr.shape, '\n') #print size of array (should be 14x14)
+
+print('Cell ran in...', (datetime.now() - start), '\n''\n', '-----DONE-----')
+
+#%%
+
+from datetime import datetime
+start = datetime.now()
+
+import matplotlib.pyplot as plt #import matplotlib
+
+#image full correlation matrix
+plt.rcParams['figure.figsize'] = 18, 8
+plt.subplot()
+plt.imshow(MD_corr, vmin=-1.5,vmax=1.5, cmap='bwr') 
+plt.colorbar(label='Correlation of Motion')
+plt.xlabel('Position 1', fontsize=14)
+plt.ylabel('Position 2', fontsize=14)
+plt.title('Dynamic Cross Correlation, Full', fontsize=20)
+plt.show()
+
+#image H3 loop correlation matrix
+pos_1 = ['99','100','101','102','103','104','105','106','107','108','109','110','111','112']
+pos_2 = ['99','100','101','102','103','104','105','106','107','108','109','110','111','112']
+fig, ax = plt.subplots()
+plt.imshow(H3_corr, vmin=0,vmax=1., cmap='Reds') 
+plt.colorbar(label='Correlation of Motion')
+plt.xticks(np.arange(len(pos_1)), labels=pos_1)
+plt.yticks(np.arange(len(pos_2)), labels=pos_2)
+for i in range(len(pos_2)):
+    for j in range(len(pos_1)):
+        text = ax.text(j, i, H3_corr[i, j],
+                       ha="center", va="center", color="w")
+plt.xlabel('Position 1', fontsize=14)
+plt.ylabel('Position 2', fontsize=14)
+plt.title('Dynamic Cross Correlation, H3 Loop', fontsize=20)
+plt.show()
+
+print('Cell ran in...', (datetime.now() - start), '\n''\n', '-----DONE-----')
