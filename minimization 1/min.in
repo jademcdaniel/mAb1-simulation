@@ -1,0 +1,14 @@
+initial minimization: solvent + ions + ligands
+ &cntrl
+  imin = 1,
+  maxcyc = 1000,
+  ncyc = 500,
+  ntb = 1,
+  ntr = 1,
+  cut = 9.0
+/
+Hold the protein fixed
+500.0
+RES 1 445
+END
+END
