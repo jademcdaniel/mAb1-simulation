@@ -1,0 +1,8 @@
+%%bash
+python3.6 -m virtualenv chem5420_lab4
+source chem5420_lab4/bin/activate
+pip3 install ipykernel
+pip3 install numpy pandas matplotlib scipy==1.2 statsmodels
+
+ipython kernel install --user --name=chem5420_lab4
+git clone https://github.com/allie-walker/Lab4.git
